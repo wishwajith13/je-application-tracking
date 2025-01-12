@@ -23,6 +23,10 @@ public class CounselorSessionServiceIMPL implements CounselorSessionService {
     @Autowired
     private CounselorSessionMapper counselorSessionMapper;
 
+//    public CounselorSessionServiceIMPL(CounselorSessionRepo counselorSessionRepo) {
+//        this.counselorSessionRepo = counselorSessionRepo;
+//    }
+
     @Override
     public String saveCounselorSession(CounselorSessionSaveDTO counselorSessionSaveDTO) {
         CounselorSession counselorSession = modelMapper.map(counselorSessionSaveDTO, CounselorSession.class);
