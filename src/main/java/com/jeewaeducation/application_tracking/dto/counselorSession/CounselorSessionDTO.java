@@ -12,6 +12,6 @@ import java.util.Date;
 @Data
 public class CounselorSessionDTO {
     private int sessionId;
-    private Date sessionDate;
+    private String sessionDate;
     private String sessionDescription;
 }

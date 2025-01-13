@@ -10,6 +10,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class CounselorSessionSaveDTO {
-    private Date sessionDate;
+    private String sessionDate;
     private String sessionDescription;
 }

@@ -18,7 +18,7 @@ public class CounselorSession {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int sessionId;
     @Column(name = "session_date", nullable = false)
-    private Date sessionDate;
+    private String sessionDate;
     @Column(name = "session_description")
     private String sessionDescription;
 }
