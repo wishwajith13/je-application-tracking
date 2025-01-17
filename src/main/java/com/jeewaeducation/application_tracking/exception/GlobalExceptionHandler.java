@@ -17,4 +17,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<StandardResponse> handleDuplicateKeyException(DuplicateKeyException exception) {
         return new ResponseEntity<StandardResponse>(new StandardResponse(409, "Conflict", exception.getMessage()), HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<StandardResponse> handleIOException(IOException exception) {
+        return new ResponseEntity<StandardResponse>(new StandardResponse(500, "Internal Server Error", exception.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    public ResponseEntity<StandardResponse> handleFileNotFoundException(FileNotFoundException exception) {
+        return new ResponseEntity<StandardResponse>(new StandardResponse(404, "File Not Found", exception.getMessage()), HttpStatus.NOT_FOUND);
+    }
 }
