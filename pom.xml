@@ -66,6 +66,12 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.7.0</version>
 		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -97,6 +103,33 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>1.5.5.Final</version>
 		</dependency>
+
+		<!-- AWS SDK for S3 -->
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
+			<version>2.29.29</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- AWS SDK Core -->
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>core</artifactId>
+			<version>2.29.29</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.12.300</version>
+		</dependency>
+		<!-- Optional: Spring Cloud AWS (for easier integration) -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-aws</artifactId>
+			<version>2.2.6.RELEASE</version> <!-- Check for the latest version -->
+		</dependency>
+
 
 	</dependencies>
 
