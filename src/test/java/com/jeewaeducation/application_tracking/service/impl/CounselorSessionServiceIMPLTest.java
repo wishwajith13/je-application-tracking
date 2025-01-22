@@ -1,9 +1,6 @@
 package com.jeewaeducation.application_tracking.service.impl;
 
 import com.jeewaeducation.application_tracking.dto.counselorSession.CounselorSessionSaveDTO;
-import com.jeewaeducation.application_tracking.entity.CounselorSession;
-import com.jeewaeducation.application_tracking.repo.CounselorSessionRepo;
-import com.jeewaeducation.application_tracking.service.CounselorSessionService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +9,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
