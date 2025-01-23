@@ -21,8 +21,8 @@ import static java.net.HttpURLConnection.HTTP_OK;
 public class S3Controller {
     private final S3Service s3Service;
 
-    @PostMapping(path = "/{studentId}/{folderCategory}", consumes = "multipart/form-data")
-    @ApiOperation(value = "Upload a file to S3")
+    @PostMapping(path = "/{studentId}/{folderCategory}", consumes = "multipart/form-data") //multipart/form-data is a MIME (Multipurpose Internet Mail Extensions) type used for submitting form data that includes files, along with other form fields. It allows the transfer of binary data (e.g., files) and textual data (e.g., strings) in a single request.
+    @ApiOperation(value = "Upload a file to S3") // describe a specific operation (endpoint or method) in an API. Use for swagger.
     public ResponseEntity<StandardResponse> upload(@RequestParam("file") MultipartFile file, @PathVariable int studentId, @PathVariable String folderCategory) {
         return new ResponseEntity<>(new StandardResponse(HTTP_OK, "Success",
                 s3Service.saveFile(file, studentId, folderCategory)), HttpStatus.OK);

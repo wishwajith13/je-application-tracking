@@ -1,7 +1,5 @@
 package com.jeewaeducation.application_tracking.service;
 
-import com.jeewaeducation.application_tracking.utility.StandardResponse;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

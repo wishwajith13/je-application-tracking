@@ -5,15 +5,12 @@ import com.amazonaws.services.s3.model.*;
 import com.amazonaws.util.IOUtils;
 import com.jeewaeducation.application_tracking.exception.DuplicateKeyException;
 import com.jeewaeducation.application_tracking.exception.FileNotFoundException;
-import com.jeewaeducation.application_tracking.exception.NotFoundException;
 import com.jeewaeducation.application_tracking.service.S3Service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.jeewaeducation.application_tracking.exception.IOException;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +31,8 @@ public class S3ServiceIMPL implements S3Service {
     public String saveFile(MultipartFile filename, int studentId, String folderCategory) {
         String originalFilename = filename.getOriginalFilename();
         try (InputStream inputStream = filename.getInputStream()) {
+            //getInputStream - allows to read the content of the uploaded file byte-by-byte or in chunks, process the file without needing to store it physically on the server.
+            // InputStream - A core Java class used to read data from a source
             // Define the S3 key (path) using the student ID as a folder
             String key = "students/" + studentId + "/" + folderCategory + "/" + originalFilename;
 
@@ -68,11 +67,11 @@ public class S3ServiceIMPL implements S3Service {
         }
 
         // Retrieve the file from S3
-        S3Object object = s3.getObject(bucketName, key);
-        S3ObjectInputStream objectContent = object.getObjectContent();
+        S3Object object = s3.getObject(bucketName, key); //Retrieving the File
+        S3ObjectInputStream objectContent = object.getObjectContent(); //Reading the File Content
 
         try {
-            return IOUtils.toByteArray(objectContent);
+            return IOUtils.toByteArray(objectContent); //convert the input stream into a byte array
         } catch (java.io.IOException e) {
             throw new IOException("Error downloading file from S3: " + filename);
         }
@@ -184,13 +183,5 @@ public class S3ServiceIMPL implements S3Service {
         s3.deleteObjects(deleteRequest);
 
         return "All files in Category: " + studentId + " have been deleted.";
-    }
-
-    private File convertMultiPartFile(MultipartFile file) throws java.io.IOException {
-        File convFile = new File(file.getOriginalFilename());
-        FileOutputStream fos = new FileOutputStream(convFile);
-        fos.write(file.getBytes());
-        fos.close();
-        return convFile;
     }
 }
