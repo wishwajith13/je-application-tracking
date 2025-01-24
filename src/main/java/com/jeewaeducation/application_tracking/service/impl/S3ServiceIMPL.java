@@ -92,10 +92,15 @@ public class S3ServiceIMPL implements S3Service {
     @Override
     public List<String> listAllFiles() {
         ListObjectsV2Result listObjectsV2Result = s3.listObjectsV2(bucketName);
+        //listObjectsV2 - is part of the AWS SDK and is used to list objects (files) in an S3 bucket.
+        //ListObjectsV2Result - is a class that contains the list of objects in an S3 bucket.
 
         List<String> fileKeys = listObjectsV2Result.getObjectSummaries()
+                //Converts the list of S3ObjectSummary objects into a stream for processing
                 .stream()
+                //Extracts the key (path) of each file from the S3ObjectSummary.
                 .map(S3ObjectSummary::getKey)
+                //Collects the extracted keys
                 .collect(Collectors.toList());
 
         if (fileKeys.isEmpty()) {
