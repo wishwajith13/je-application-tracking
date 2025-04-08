@@ -9,10 +9,11 @@ public interface S3Service {
 
     String saveFile(MultipartFile filename, int studentId, String folderCategory);
 
-    byte[] downloadFile(String studentId,String folderCategory, String filename);
+    byte[] downloadFile(String studentId, String folderCategory, String filename);
+
     String deleteFile(int studentId, String folderCategory, String filename);
 
-    List<String> listAllFiles();
+    List<String[]> listAllFiles();
 
     List<String> listFilesByStudentId(int studentId, String folderCategory);
 
