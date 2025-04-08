@@ -13,6 +13,7 @@ import com.jeewaeducation.application_tracking.exception.IOException;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -90,24 +91,37 @@ public class S3ServiceIMPL implements S3Service {
     }
 
     @Override
-    public List<String> listAllFiles() {
+    public List<String[]> listAllFiles() {
         ListObjectsV2Result listObjectsV2Result = s3.listObjectsV2(bucketName);
         //listObjectsV2 - is part of the AWS SDK and is used to list objects (files) in an S3 bucket.
         //ListObjectsV2Result - is a class that contains the list of objects in an S3 bucket.
 
-        List<String> fileKeys = listObjectsV2Result.getObjectSummaries()
+        List<String[]> fileDetails = listObjectsV2Result.getObjectSummaries()
                 //Converts the list of S3ObjectSummary objects into a stream for processing
                 .stream()
                 //Extracts the key (path) of each file from the S3ObjectSummary.
                 .map(S3ObjectSummary::getKey)
+                .map(key -> {
+                    String[] parts = key.split("/");
+                    if (parts.length < 4 || !"students".equals(parts[0])) {
+                        return null; // Skip files that don't match expected structure
+                    }
+                    String studentId = parts[1];
+                    String folderCategory = parts[2];
+                    String filename = parts[3]; // Last part is the filename
+
+                    return new String[]{studentId, folderCategory, filename};
+                })
+                // Remove skipped entries
+                .filter(Objects::nonNull)
                 //Collects the extracted keys
                 .collect(Collectors.toList());
 
-        if (fileKeys.isEmpty()) {
-            throw new FileNotFoundException("No files found. Please upload files.");
+        if (fileDetails.isEmpty()) {
+            throw new FileNotFoundException("No valid files found. Please upload files.");
         }
 
-        return fileKeys;
+        return fileDetails;
     }
 
     @Override
